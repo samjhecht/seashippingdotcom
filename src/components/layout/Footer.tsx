@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { COMPANY_INFO, REGULATORY_INFO } from "@/lib/constants";
-import { Copy, FileText, MapPin } from "lucide-react";
+import { Copy, MapPin } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
