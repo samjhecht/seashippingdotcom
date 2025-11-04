@@ -154,17 +154,18 @@ export function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Regulatory Credentials */}
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-center lg:text-left">
+              <h3 className="text-lg font-semibold mb-3 text-center lg:text-left">
                 Regulatory Credentials
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
                 {credentials.map((credential, index) => (
                   <CopyToClipboardCard
                     key={index}
                     label={credential.label}
                     value={credential.value}
-                    icon={<FileText className="h-4 w-4" />}
+                    icon={<FileText className="h-3.5 w-3.5" />}
                     className="bg-gray-800 border-gray-700"
+                    compact
                   />
                 ))}
               </div>
