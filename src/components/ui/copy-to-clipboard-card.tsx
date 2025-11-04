@@ -35,9 +35,9 @@ export function CopyToClipboardCard({
 
   return (
     <Card className={cn('group hover:shadow-md transition-shadow', className)}>
-      <CardContent className={compact ? 'p-2' : 'p-4'}>
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 flex-1 min-w-0">
+      <CardContent className={compact ? 'p-1.5' : 'p-4'}>
+        <div className="flex items-center justify-between gap-1.5">
+          <div className="flex items-center gap-1.5 flex-1 min-w-0">
             {icon && (
               <div className="flex-shrink-0 text-ssl-red" aria-hidden="true">
                 {icon}
@@ -60,15 +60,15 @@ export function CopyToClipboardCard({
             onClick={handleCopy}
             className={cn(
               'flex-shrink-0 transition-colors',
-              compact ? 'h-7 w-7 p-0' : '',
+              compact ? 'h-6 w-6 p-0' : '',
               copied && 'text-green-600'
             )}
             aria-label={copied ? `Copied ${label}` : `Copy ${label}`}
           >
             {copied ? (
-              <Check className={compact ? 'h-3.5 w-3.5' : 'h-5 w-5'} />
+              <Check className={compact ? 'h-3 w-3' : 'h-5 w-5'} />
             ) : (
-              <Copy className={compact ? 'h-3.5 w-3.5' : 'h-5 w-5'} />
+              <Copy className={compact ? 'h-3 w-3' : 'h-5 w-5'} />
             )}
           </Button>
         </div>
