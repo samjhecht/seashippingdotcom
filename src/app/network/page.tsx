@@ -25,6 +25,11 @@ const domesticOffices = [
     cityState: 'Oakland, CA 94607',
     phone: '+1 (510) 639-7447',
     fax: '+1 (510) 663-0104',
+    emails: {
+      exports: 'oak.customerservice@seashipping.com',
+      imports: 'imports@seashipping.com',
+      documents: 'oak.docs@seashipping.com',
+    },
     staff: [
       { name: 'Frank Rosenberg', title: 'President' },
       { name: 'Sandy Di Caprio', title: 'Sales Manager' },
@@ -41,6 +46,8 @@ const domesticOffices = [
     address: '114 Maple Avenue',
     cityState: 'Red Bank, NJ 07701',
     phone: '+1 (732) 530-2085',
+    fax: '+1 (732) 530-2071 | +1 (732) 758-6037',
+    email: 'sslnj@seashippingna.com',
     staff: [
       { name: 'Fred Morgenthaler', title: 'President' },
       { name: 'Maggie Paukovits', title: 'Contract Manager' },
@@ -49,33 +56,67 @@ const domesticOffices = [
   {
     city: 'Atlanta',
     state: 'Georgia',
-    phone: '+1 (510) 639-7447',
+    address: '702 Abbey Court',
+    cityState: 'Alpharetta, GA 30004',
+    phone: '+1 (770) 663-3441',
+    fax: '+1 (770) 663-3046',
+    email: 'sslatlanta@seashippingna.com',
   },
   {
     city: 'Chicago',
     state: 'Illinois',
-    phone: '+1 (510) 639-7447',
+    address: '1807 W. Diehl Road, Suite 205',
+    cityState: 'Naperville, IL 60563-1890',
+    phone: '+1 (630) 393-9060',
+    fax: '+1 (732) 530-2071',
+    email: 'sslchi@seashippingna.com',
   },
   {
     city: 'Houston',
     state: 'Texas',
-    phone: '+1 (510) 639-7447',
+    address: '19221 I-45, Suite 350',
+    cityState: 'Shenandoah, TX 77385',
+    phone: '+1 (281) 877-0810',
+    fax: '+1 (281) 877-0660',
+    emails: {
+      exports: 'hou.customerservice@seashipping.com',
+      documents: 'hou.docs@seashipping.com',
+    },
   },
   {
     city: 'Los Angeles',
     state: 'California',
-    phone: '+1 (510) 639-7447',
+    address: '2050 West 190th Street, Suite #201',
+    cityState: 'Torrance, CA 90504',
+    phone: '+1 (310) 767-1350',
+    fax: '+1 (310) 767-1360 | (310) 767-1544',
+    emails: {
+      exports: 'lax.customerservice@seashipping.com',
+      imports: 'lax.import@seashipping.com',
+      documents: 'lax.docs@seashipping.com',
+    },
     divisions: ['Special Commodities'],
   },
   {
     city: 'Miami',
     state: 'Florida',
-    phone: '+1 (510) 639-7447',
+    address: '250 South Central Blvd., Suite 102',
+    cityState: 'Jupiter, FL 33458',
+    phone: '+1 (561) 832-5665',
+    fax: '+1 (561) 768-9151',
+    email: 'sslmia@seashippingna.com',
   },
   {
     city: 'Seattle',
     state: 'Washington',
-    phone: '+1 (510) 639-7447',
+    address: '19125 North Creek Parkway, Suite 120',
+    cityState: 'Bothell, WA 98011',
+    phone: '+1 (206) 282-9559',
+    fax: '+1 (206) 282-9741',
+    emails: {
+      exports: 'sea.customerservice@seashipping.com',
+      documents: 'sea.docs@seashipping.com',
+    },
   },
 ];
 
@@ -659,6 +700,45 @@ export default function NetworkPage() {
                     <div className="flex items-center gap-2">
                       <Printer className="h-4 w-4 text-gray-500 flex-shrink-0" aria-hidden="true" />
                       <span className="text-sm">{office.fax}</span>
+                    </div>
+                  )}
+                  {office.email && (
+                    <div className="text-sm">
+                      <span className="font-medium block mb-1">Email:</span>
+                      <a href={`mailto:${office.email}`} className="text-blue-600 hover:underline break-all">
+                        {office.email}
+                      </a>
+                    </div>
+                  )}
+                  {office.emails && (
+                    <div className="text-sm">
+                      <span className="font-medium block mb-1">Emails:</span>
+                      <div className="space-y-1">
+                        {office.emails.exports && (
+                          <div>
+                            <span className="text-gray-600">Exports: </span>
+                            <a href={`mailto:${office.emails.exports}`} className="text-blue-600 hover:underline break-all">
+                              {office.emails.exports}
+                            </a>
+                          </div>
+                        )}
+                        {office.emails.imports && (
+                          <div>
+                            <span className="text-gray-600">Imports: </span>
+                            <a href={`mailto:${office.emails.imports}`} className="text-blue-600 hover:underline break-all">
+                              {office.emails.imports}
+                            </a>
+                          </div>
+                        )}
+                        {office.emails.documents && (
+                          <div>
+                            <span className="text-gray-600">Documents: </span>
+                            <a href={`mailto:${office.emails.documents}`} className="text-blue-600 hover:underline break-all">
+                              {office.emails.documents}
+                            </a>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
                   {office.staff && office.staff.length > 0 && (
