@@ -2,7 +2,6 @@
 
 import { services } from '@/content/services';
 import { COMPANY_INFO, REGULATORY_INFO } from '@/lib/constants';
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
