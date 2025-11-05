@@ -12,7 +12,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative h-[500px] md:h-[600px] flex items-center justify-center"
+      className="relative h-[400px] md:h-[500px] flex items-center justify-center"
       aria-label="Hero banner"
     >
       <Image
@@ -20,7 +20,7 @@ export function Hero() {
         alt={heroImage.alt}
         fill
         priority={heroImage.priority}
-        className="object-cover"
+        className="object-cover object-[75%_center] md:object-center"
         sizes={imageSizes.hero}
         quality={90}
       />

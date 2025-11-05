@@ -137,6 +137,84 @@ function FooterSection({ section }: { section: FooterSection }) {
   );
 }
 
+// Extracted content components - single source of truth
+function OfficeLocations() {
+  return (
+    <div className="flex items-start gap-2">
+      <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: '#ee1c23' }} />
+      <div>
+        <h4 className="font-semibold mb-3 text-base">Offices</h4>
+        <div className="text-base text-gray-300 leading-tight">
+          {officeLocations.join(' | ')}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CtpatLinks() {
+  return (
+    <div>
+      <h4 className="font-semibold mb-3 text-sm">C-TPAT Certified</h4>
+      <div className="flex flex-col leading-none">
+        {ctpatLinks.map((link, index) => (
+          <Link
+            key={index}
+            href={link.href}
+            target={link.external ? '_blank' : undefined}
+            rel={link.external ? 'noopener noreferrer' : undefined}
+            className="text-sm text-gray-300 hover:text-white underline transition-colors leading-5"
+          >
+            {link.label}
+            {link.external && ' ↗'}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function RegulatoryCredentials() {
+  return (
+    <div>
+      <h3 className="font-semibold mb-3 text-sm">
+        Regulatory Credentials
+      </h3>
+      <div className="space-y-0 leading-none">
+        {credentials.map((credential, index) => (
+          <div
+            key={index}
+            className="flex items-center gap-2 text-sm leading-5"
+          >
+            <span className="text-gray-400 min-w-[100px] md:min-w-[120px] shrink-0">
+              {credential.label}:
+            </span>
+            <div className="flex items-center gap-2 min-w-0 flex-1 md:flex-initial">
+              <span className="text-gray-300 font-mono truncate md:truncate-none">
+                {credential.value}
+              </span>
+              <button
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(credential.value);
+                  } catch (err) {
+                    console.error('Failed to copy:', err);
+                  }
+                }}
+                className="flex-shrink-0 p-1 hover:bg-gray-800 rounded transition-colors"
+                aria-label={`Copy ${credential.label}`}
+                title={`Copy ${credential.label}`}
+              >
+                <Copy className="h-3.5 w-3.5 text-gray-400 hover:text-white" />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function Footer() {
   const currentYear = new Date().getFullYear();
   const [isMounted, setIsMounted] = useState(false);
@@ -149,150 +227,22 @@ export function Footer() {
     <footer role="contentinfo" className="bg-black text-white">
       <div className="container mx-auto px-4">
         {/* Office Locations, Regulatory Credentials & C-TPAT Section */}
+        {/* Single responsive structure */}
         <div className="py-8 border-b border-white">
-          {/* Mobile: Stacked Layout */}
-          <div className="block md:hidden space-y-6">
-            {/* Office Locations */}
-            <div>
-              <div className="flex items-start gap-2">
-                <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: '#ee1c23' }} />
-                <div>
-                  <h4 className="font-semibold mb-3 text-base">Offices</h4>
-                  <div className="text-base text-gray-300 leading-tight">
-                    {officeLocations.join(' | ')}
-                  </div>
-                </div>
-              </div>
+          <div className="flex flex-col md:flex-row gap-6 md:gap-4 md:items-start md:justify-between">
+            {/* Office Locations - takes up flexible space on desktop */}
+            <div className="flex-1 min-w-0">
+              <OfficeLocations />
             </div>
 
-            {/* Regulatory Credentials */}
-            <div>
-              <h3 className="font-semibold mb-3 text-sm">
-                Regulatory Credentials
-              </h3>
-              <div className="space-y-0 leading-none">
-                {credentials.map((credential, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-2 text-sm leading-5"
-                  >
-                    <span className="text-gray-400 min-w-[100px] shrink-0">
-                      {credential.label}:
-                    </span>
-                    <div className="flex items-center gap-2 min-w-0 flex-1">
-                      <span className="text-gray-300 font-mono truncate">
-                        {credential.value}
-                      </span>
-                      <button
-                        onClick={async () => {
-                          try {
-                            await navigator.clipboard.writeText(credential.value);
-                          } catch (err) {
-                            console.error('Failed to copy:', err);
-                          }
-                        }}
-                        className="flex-shrink-0 p-1 hover:bg-gray-800 rounded transition-colors"
-                        aria-label={`Copy ${credential.label}`}
-                        title={`Copy ${credential.label}`}
-                      >
-                        <Copy className="h-3.5 w-3.5 text-gray-400 hover:text-white" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            {/* C-TPAT Links - fixed width on desktop */}
+            <div className="md:min-w-[200px] md:flex-shrink-0 flex flex-col justify-center">
+              <CtpatLinks />
             </div>
 
-            {/* C-TPAT Links */}
-            <div>
-              <h4 className="font-semibold mb-3 text-sm">C-TPAT Certified</h4>
-              <div className="flex flex-col leading-none">
-                {ctpatLinks.map((link, index) => (
-                  <Link
-                    key={index}
-                    href={link.href}
-                    target={link.external ? '_blank' : undefined}
-                    rel={link.external ? 'noopener noreferrer' : undefined}
-                    className="text-sm text-gray-300 hover:text-white underline transition-colors leading-5"
-                  >
-                    {link.label}
-                    {link.external && ' ↗'}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Desktop: Horizontal Layout */}
-          <div className="hidden md:grid md:grid-cols-[1fr_auto_auto] gap-4 items-start">
-            {/* Office Locations - Left (flexible) */}
-            <div>
-              <div className="flex items-start gap-2">
-                <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: '#ee1c23' }} />
-                <div>
-                  <h4 className="font-semibold mb-3 text-base">Offices</h4>
-                  <div className="text-base text-gray-300 leading-tight">
-                    {officeLocations.join(' | ')}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Regulatory Credentials - Center (fixed width) */}
-            <div className="min-w-[420px]">
-              <h3 className="font-semibold mb-3 text-sm">
-                Regulatory Credentials
-              </h3>
-              <div className="space-y-0 leading-none">
-                {credentials.map((credential, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-2 text-sm leading-5"
-                  >
-                    <span className="text-gray-400 min-w-[120px] shrink-0">
-                      {credential.label}:
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-gray-300 font-mono">
-                        {credential.value}
-                      </span>
-                      <button
-                        onClick={async () => {
-                          try {
-                            await navigator.clipboard.writeText(credential.value);
-                          } catch (err) {
-                            console.error('Failed to copy:', err);
-                          }
-                        }}
-                        className="flex-shrink-0 p-1 hover:bg-gray-800 rounded transition-colors"
-                        aria-label={`Copy ${credential.label}`}
-                        title={`Copy ${credential.label}`}
-                      >
-                        <Copy className="h-3.5 w-3.5 text-gray-400 hover:text-white" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* C-TPAT Links - Right (fixed width) */}
-            <div className="flex flex-col justify-center min-w-[200px]">
-              <h4 className="font-semibold mb-3 text-sm">C-TPAT Certified</h4>
-              <div className="flex flex-col leading-none">
-                {ctpatLinks.map((link, index) => (
-                  <Link
-                    key={index}
-                    href={link.href}
-                    target={link.external ? '_blank' : undefined}
-                    rel={link.external ? 'noopener noreferrer' : undefined}
-                    className="text-sm text-gray-300 hover:text-white underline transition-colors leading-5"
-                  >
-                    {link.label}
-                    {link.external && ' ↗'}
-                  </Link>
-                ))}
-              </div>
+            {/* Regulatory Credentials - fixed width on desktop, right-aligned */}
+            <div className="md:w-[420px] md:flex-shrink-0">
+              <RegulatoryCredentials />
             </div>
           </div>
         </div>
