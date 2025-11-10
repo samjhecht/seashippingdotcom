@@ -47,9 +47,6 @@ next-env.d.ts
 .claude/
 .claude-flow/
 .swarm/
-issues/
-specifications/
-CLAUDE.md
 
 # IDEs
 .vscode/
